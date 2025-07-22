@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.project.task_manager.entity.Task;
+import ru.project.task_manager.dto.TaskDto;
 import ru.project.task_manager.service.TaskService;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<Task>> findAll() {
+    public ResponseEntity<List<TaskDto>> findAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.findAll());
         } catch (IllegalArgumentException e) {
@@ -27,7 +27,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Task>> findById(@PathVariable Long id) {
+    public ResponseEntity<Optional<TaskDto>> findById(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.findById(id));
         } catch (IllegalArgumentException e) {
@@ -36,14 +36,14 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> save(@RequestBody Task task) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.save(task));
+    public ResponseEntity<TaskDto> save(@RequestBody TaskDto taskDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.save(taskDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Task>> updateById(@PathVariable Long id, @RequestBody Task task) {
+    public ResponseEntity<Optional<TaskDto>> updateById(@PathVariable Long id, @RequestBody TaskDto taskDto) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.updateById(id, task));
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.updateById(id, taskDto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }

@@ -1,5 +1,6 @@
 package ru.project.task_manager.service;
 
+import ru.project.task_manager.dto.TaskDto;
 import ru.project.task_manager.entity.Task;
 
 import java.util.List;
@@ -7,13 +8,13 @@ import java.util.Optional;
 
 public interface TaskService {
 
-    List<Task> findAll();
+    List<TaskDto> findAll();
 
-    Optional<Task> findById(Long id);
+    Optional<TaskDto> findById(Long id);
 
-    Task save(Task task);
+    TaskDto save(TaskDto taskDto);
 
-    Optional<Task> updateById(Long id, Task task);
+    Optional<TaskDto> updateById(Long id, TaskDto taskDto);
 
     void deleteById(Long id);
 }
