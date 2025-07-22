@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.project.task_manager.entity.User;
-import ru.project.task_manager.enums.UserRole;
+import ru.project.task_manager.dto.UserDto;
 import ru.project.task_manager.service.UserService;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDto>> findAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
         } catch (IllegalArgumentException e) {
@@ -28,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> findById(@PathVariable Long id) {
+    public ResponseEntity<Optional<UserDto>> findById(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
         } catch (IllegalArgumentException e) {
@@ -37,14 +36,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+    public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<User>> updateById(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<Optional<UserDto>> updateById(@PathVariable Long id, @RequestBody UserDto userDto) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(userService.updateById(id, user));
+            return ResponseEntity.status(HttpStatus.OK).body(userService.updateById(id, userDto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
